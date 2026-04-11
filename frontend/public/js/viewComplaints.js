@@ -1,7 +1,7 @@
 const complaintToken = localStorage.getItem('token');
 
 const complaintApiFetch = async(url, options = {}) => {
-    const response = await fetch(url, {
+    const response = await fetch(window.API_BASE_URL + url, {
         headers: {
             Authorization: `Bearer ${complaintToken}`,
             'Content-Type': 'application/json',
