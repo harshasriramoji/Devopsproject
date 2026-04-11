@@ -14,7 +14,7 @@ connectDB();
 
 const app = express();
 app.use(cors({
-    origin: 'https://your-netlify-app.netlify.app',  // Replace with your Netlify URL
+    origin: 'https://your-netlify-app.netlify.app', // Replace with your Netlify URL
     credentials: true
 }));
 app.use(express.json());
