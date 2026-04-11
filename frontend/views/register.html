@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HostelPro Register</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p2c8Zg7S4G3U7n1t2h6VqjP9qeKU2KvLx8vQ0K5s8bv6jSm7hGscrqY4sS0vB2qbPZDJkTXgqQf8D+S1xZ7j0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+    <div class="auth-page">
+        <div class="auth-panel">
+            <div class="brand-bar">
+                <span class="brand-mark">H</span>
+                <div>
+                    <div class="brand-title">HostelPro</div>
+                    <p class="brand-subtitle">Fast, secure registration for every hostel role.</p>
+                </div>
+            </div>
+
+            <div class="auth-copy">
+                <h1>Create your account</h1>
+                <p>Register as Admin, Staff, or Student and join the HostelPro dashboard instantly.</p>
+            </div>
+
+            <form id="registerForm" class="auth-form">
+                <div class="form-row">
+                    <label for="name">Full name</label>
+                    <div class="input-group">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="name" class="form-field" placeholder="Jane Doe" required />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label for="email">Email address</label>
+                    <div class="input-group">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="email" class="form-field" placeholder="name@domain.com" required />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label for="password">Password</label>
+                    <div class="input-group">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="password" class="form-field" placeholder="Create password" required />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label for="role">Account role</label>
+                    <div class="input-group select-group">
+                        <i class="fa-solid fa-user-tag"></i>
+                        <select id="role" class="form-field" required>
+                            <option value="" disabled selected>Select a role</option>
+                            <option value="admin">Admin</option>
+                            <option value="staff">Staff</option>
+                            <option value="student">Student</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="button-primary">Register now</button>
+                <p id="registerMessage" class="form-message"></p>
+                <p class="form-footer">Already have an account? <a href="/login">Sign in</a></p>
+            </form>
+        </div>
+
+        <div class="auth-visual">
+            <div class="visual-overlay"></div>
+            <div class="visual-text">
+                <p>Professional access</p>
+                <h2>Secure registration with polished SaaS styling.</h2>
+            </div>
+            <div class="visual-hero">
+                <div class="hero-card hero-card-1"></div>
+                <div class="hero-card hero-card-2"></div>
+                <div class="hero-card hero-card-3"></div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/register.js"></script>
+</body>
+
+</html>

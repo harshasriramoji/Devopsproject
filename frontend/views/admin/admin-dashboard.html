@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p2c8Zg7S4G3U7n1t2h6VqjP9qeKU2KvLx8vQ0K5s8bv6jSm7hGscrqY4sS0vB2qbPZDJkTXgqQf8D+S1xZ7j0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <span>H</span>
+                <div>
+                    <div>HostelPro</div>
+                    <small>Admin Panel</small>
+                </div>
+            </div>
+            <nav>
+                <a href="#overview" class="nav-link active"><i class="fa-solid fa-chart-line"></i> Overview</a>
+                <a href="#students" class="nav-link"><i class="fa-solid fa-user-graduate"></i> Students</a>
+                <a href="#staff" class="nav-link"><i class="fa-solid fa-user-tie"></i> Staff</a>
+                <a href="#rooms" class="nav-link"><i class="fa-solid fa-door-open"></i> Rooms</a>
+                <a href="#complaints" class="nav-link"><i class="fa-solid fa-comments"></i> Complaints</a>
+                <a href="#notices" class="nav-link"><i class="fa-solid fa-bell"></i> Notices</a>
+                <a href="#reports" class="nav-link"><i class="fa-solid fa-clipboard-list"></i> Reports</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <div class="topbar">
+                <div>
+                    <h1>Admin Dashboard</h1>
+                    <p>Manage students, staff, rooms and hostel analytics in one place.</p>
+                </div>
+                <div class="topbar-actions">
+                    <button id="logoutButton" class="button-secondary">Logout</button>
+                    <div class="profile-pill"><i class="fa-solid fa-user-shield"></i> Admin</div>
+                </div>
+            </div>
+
+            <section id="overview" class="widget-grid">
+                <div class="widget-card">
+                    <div>
+                        <p class="label">Total Students</p>
+                        <p class="value" id="totalStudents">0</p>
+                    </div>
+                    <div class="widget-icon widget-blue"><i class="fa-solid fa-graduation-cap"></i></div>
+                </div>
+                <div class="widget-card">
+                    <div>
+                        <p class="label">Total Staff</p>
+                        <p class="value" id="totalStaff">0</p>
+                    </div>
+                    <div class="widget-icon widget-cyan"><i class="fa-solid fa-users"></i></div>
+                </div>
+                <div class="widget-card">
+                    <div>
+                        <p class="label">Rooms</p>
+                        <p class="value" id="totalRooms">0</p>
+                    </div>
+                    <div class="widget-icon widget-indigo"><i class="fa-solid fa-bed"></i></div>
+                </div>
+                <div class="widget-card">
+                    <div>
+                        <p class="label">Open Complaints</p>
+                        <p class="value" id="openComplaints">0</p>
+                    </div>
+                    <div class="widget-icon widget-violet"><i class="fa-solid fa-exclamation-circle"></i></div>
+                </div>
+            </section>
+
+            <section class="chart-grid chart-card" id="analytics">
+                <div>
+                    <h2>Hostel Activity Snapshot</h2>
+                    <div class="chart-bars" id="analyticsChart"></div>
+                </div>
+                <div>
+                    <h2>Room Capacity Usage</h2>
+                    <div class="chart-bars" id="capacityChart"></div>
+                </div>
+            </section>
+
+            <section id="students" class="table-card">
+                <div class="topbar" style="padding:0; gap:16px; margin-bottom:16px;">
+                    <div>
+                        <h2>Students</h2>
+                        <p>Manage student records and allocation.</p>
+                    </div>
+                    <button class="button-primary" onclick="openModal('studentModal')">Add Student</button>
+                </div>
+                <div id="studentMessage" class="message"></div>
+                <div class="table-wrapper">
+                    <table id="studentTable"></table>
+                </div>
+            </section>
+
+            <section id="staff" class="table-card">
+                <div class="topbar" style="padding:0; gap:16px; margin-bottom:16px;">
+                    <div>
+                        <h2>Staff</h2>
+                        <p>Manage hostel staff assignments.</p>
+                    </div>
+                    <button class="button-primary" onclick="openModal('staffModal')">Add Staff</button>
+                </div>
+                <div id="staffMessage" class="message"></div>
+                <div class="table-wrapper">
+                    <table id="staffTable"></table>
+                </div>
+            </section>
+
+            <section id="rooms" class="table-card">
+                <div class="topbar" style="padding:0; gap:16px; margin-bottom:16px;">
+                    <div>
+                        <h2>Rooms</h2>
+                        <p>Configure rooms and allocate students.</p>
+                    </div>
+                    <button class="button-primary" onclick="openModal('roomModal')">Add Room</button>
+                </div>
+                <div id="roomMessage" class="message"></div>
+                <div class="table-wrapper">
+                    <table id="roomTable"></table>
+                </div>
+                <form id="allocateForm" class="form-grid" style="margin-top:20px;">
+                    <select id="allocateRoomSelect"></select>
+                    <select id="allocateStudentSelect"></select>
+                    <button type="submit" class="button-primary">Allocate Room</button>
+                </form>
+                <div id="allocateMessage" class="message"></div>
+            </section>
+
+            <section id="complaints" class="table-card">
+                <div class="topbar" style="padding:0; gap:16px; margin-bottom:16px; align-items:center; justify-content:space-between;">
+                    <div>
+                        <h2>Complaints</h2>
+                    </div>
+                    <select id="complaintFilter" class="form-field">
+                        <option value="All">All Statuses</option>
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Resolved">Resolved</option>
+                    </select>
+                </div>
+                <div class="table-wrapper">
+                    <table id="complaintTable"></table>
+                </div>
+            </section>
+
+            <section id="notices" class="table-card">
+                <h2>Notices</h2>
+                <div class="table-wrapper">
+                    <table id="noticeTable"></table>
+                </div>
+            </section>
+
+            <section id="reports" class="chart-card">
+                <h2>Reports Summary</h2>
+                <div id="reportSummary" class="report-grid"></div>
+            </section>
+        </main>
+    </div>
+
+    <div id="studentModal" class="modal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('studentModal')">&times;</button>
+            <h2>Add Student</h2>
+            <form id="studentForm" class="form-grid">
+                <input type="text" id="studentName" placeholder="Full name" required />
+                <input type="email" id="studentEmail" placeholder="Email address" required />
+                <input type="password" id="studentPassword" placeholder="Password" required />
+                <button type="submit" class="button-primary">Create Student</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="staffModal" class="modal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('staffModal')">&times;</button>
+            <h2>Add Staff</h2>
+            <form id="staffForm" class="form-grid">
+                <input type="text" id="staffName" placeholder="Full name" required />
+                <input type="email" id="staffEmail" placeholder="Email address" required />
+                <input type="password" id="staffPassword" placeholder="Password" required />
+                <button type="submit" class="button-primary">Create Staff</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="roomModal" class="modal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('roomModal')">&times;</button>
+            <h2>Add Room</h2>
+            <form id="roomForm" class="form-grid">
+                <input type="text" id="roomNumber" placeholder="Room number" required />
+                <input type="text" id="roomType" placeholder="Room type" required />
+                <input type="number" id="roomCapacity" placeholder="Capacity" min="1" value="1" required />
+                <button type="submit" class="button-primary">Create Room</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/viewComplaints.js"></script>
+    <script src="/js/admin.js"></script>
+</body>
+
+</html>

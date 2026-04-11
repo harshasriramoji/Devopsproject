@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Staff Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p2c8Zg7S4G3U7n1t2h6VqjP9qeKU2KvLx8vQ0K5s8bv6jSm7hGscrqY4sS0vB2qbPZDJkTXgqQf8D+S1xZ7j0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <span>H</span>
+                <div>
+                    <div>HostelPro</div>
+                    <small>Staff Panel</small>
+                </div>
+            </div>
+            <nav>
+                <a href="#overview" class="nav-link active"><i class="fa-solid fa-chart-pie"></i> Overview</a>
+                <a href="#students" class="nav-link"><i class="fa-solid fa-user-graduate"></i> Students</a>
+                <a href="#complaints" class="nav-link"><i class="fa-solid fa-comments"></i> Complaints</a>
+                <a href="#rooms" class="nav-link"><i class="fa-solid fa-door-open"></i> Rooms</a>
+                <a href="#notices" class="nav-link"><i class="fa-solid fa-bullhorn"></i> Notices</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <div class="topbar">
+                <div>
+                    <h1>Staff Dashboard</h1>
+                    <p>Track students, complaints, room status, and notices.</p>
+                </div>
+                <div class="topbar-actions">
+                    <button id="logoutButton" class="button-secondary">Logout</button>
+                    <div class="profile-pill"><i class="fa-solid fa-user-tie"></i> Staff</div>
+                </div>
+            </div>
+
+            <section id="overview" class="widget-grid">
+                <div class="widget-card">
+                    <div>
+                        <p class="label">Assigned Students</p>
+                        <p class="value" id="staffAssigned">0</p>
+                    </div>
+                    <div class="widget-icon widget-blue"><i class="fa-solid fa-user-graduate"></i></div>
+                </div>
+                <div class="widget-card">
+                    <div>
+                        <p class="label">Open Complaints</p>
+                        <p class="value" id="staffComplaints">0</p>
+                    </div>
+                    <div class="widget-icon widget-cyan"><i class="fa-solid fa-comments"></i></div>
+                </div>
+                <div class="widget-card">
+                    <div>
+                        <p class="label">Rooms in Maintenance</p>
+                        <p class="value" id="maintenanceRooms">0</p>
+                    </div>
+                    <div class="widget-icon widget-indigo"><i class="fa-solid fa-tools"></i></div>
+                </div>
+            </section>
+
+            <section id="students" class="table-card">
+                <h2>Assigned Students</h2>
+                <div class="table-wrapper">
+                    <table id="assignedStudentsTable"></table>
+                </div>
+            </section>
+
+            <section id="complaints" class="table-card">
+                <h2>Complaints</h2>
+                <div class="table-wrapper">
+                    <table id="complaintTable"></table>
+                </div>
+            </section>
+
+            <section id="rooms" class="table-card">
+                <h2>Room Status</h2>
+                <div class="table-wrapper">
+                    <table id="roomStatusTable"></table>
+                </div>
+            </section>
+
+            <section id="notices" class="notice-card">
+                <div class="topbar" style="padding:0; gap:16px; margin-bottom:20px;">
+                    <div>
+                        <h2>Hostel Notices</h2>
+                        <p>Publish announcements for all students.</p>
+                    </div>
+                </div>
+                <form id="noticeForm" class="form-grid">
+                    <input type="text" id="noticeTitle" placeholder="Notice Title" required />
+                    <textarea id="noticeMessage" rows="3" placeholder="Notice Message" required></textarea>
+                    <button type="submit" class="button-primary">Post Notice</button>
+                </form>
+                <div id="noticeMessageBox" class="message"></div>
+                <div class="table-wrapper">
+                    <table id="noticeTable"></table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/js/viewComplaints.js"></script>
+    <script src="/js/staff.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p2c8Zg7S4G3U7n1t2h6VqjP9qeKU2KvLx8vQ0K5s8bv6jSm7hGscrqY4sS0vB2qbPZDJkTXgqQf8D+S1xZ7j0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <span>H</span>
+                <div>
+                    <div>HostelPro</div>
+                    <small>Student Portal</small>
+                </div>
+            </div>
+            <nav>
+                <a href="#overview" class="nav-link active"><i class="fa-solid fa-house"></i> Overview</a>
+                <a href="#profile" class="nav-link"><i class="fa-solid fa-id-card"></i> Profile</a>
+                <a href="#room" class="nav-link"><i class="fa-solid fa-door-open"></i> Room</a>
+                <a href="#complaint" class="nav-link"><i class="fa-solid fa-comments"></i> Complaint</a>
+                <a href="#notices" class="nav-link"><i class="fa-solid fa-bell"></i> Notices</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <div class="topbar">
+                <div>
+                    <h1>Student Dashboard</h1>
+                    <p>View your room details, submit complaints, and read hostel notices.</p>
+                </div>
+                <div class="topbar-actions">
+                    <button id="logoutButton" class="button-secondary">Logout</button>
+                    <div class="profile-pill"><i class="fa-solid fa-user-graduate"></i> Student</div>
+                </div>
+            </div>
+
+            <section id="overview" class="widget-grid">
+                <div class="widget-card">
+                    <div>
+                        <p class="label">Current Room</p>
+                        <p class="value" id="roomNumber">--</p>
+                    </div>
+                    <div class="widget-icon widget-blue"><i class="fa-solid fa-bed"></i></div>
+                </div>
+                <div class="widget-card">
+                    <div>
+                        <p class="label">Complaints Submitted</p>
+                        <p class="value" id="complaintCount">0</p>
+                    </div>
+                    <div class="widget-icon widget-cyan"><i class="fa-solid fa-file-circle-plus"></i></div>
+                </div>
+                <div class="widget-card">
+                    <div>
+                        <p class="label">Notices</p>
+                        <p class="value" id="noticeCount">0</p>
+                    </div>
+                    <div class="widget-icon widget-indigo"><i class="fa-solid fa-bell"></i></div>
+                </div>
+            </section>
+
+            <section id="profile" class="table-card">
+                <h2>Profile</h2>
+                <div id="profileInfo" class="card"></div>
+            </section>
+
+            <section id="room" class="table-card">
+                <h2>Room Details</h2>
+                <div id="roomInfo" class="card"></div>
+            </section>
+
+            <section id="complaint" class="table-card">
+                <h2>Submit Complaint</h2>
+                <form id="complaintForm" class="form-grid">
+                    <input type="text" id="complaintTitle" placeholder="Complaint Title" required />
+                    <input type="text" id="roomNumber" placeholder="Room Number" required />
+                    <textarea id="complaintDescription" rows="4" placeholder="Describe the issue" required></textarea>
+                    <button type="submit" class="button-primary">Submit Complaint</button>
+                </form>
+                <div id="complaintMessage" class="message"></div>
+            </section>
+
+            <section id="notices" class="table-card">
+                <h2>Notices</h2>
+                <div class="table-wrapper">
+                    <table id="noticeTable"></table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/js/student.js"></script>
+    <script src="/js/studentComplaint.js"></script>
+</body>
+
+</html>
