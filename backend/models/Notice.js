@@ -5,6 +5,7 @@ const noticeSchema = new mongoose.Schema({
     message: { type: String, required: true },
     author: { type: String, required: true },
     role: {
+
         type: String,
         enum: ['admin', 'staff'],
         default: 'staff',
