@@ -14,7 +14,7 @@ connectDB();
 
 const app = express();
 app.use(cors({
-    origin: 'https://gilded-tapioca-0aa7f4.netlify.app', // Replace with your Netlify URL
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000',  // Use env var or default to localhost
     credentials: true
 }));
 app.use(express.json());
