@@ -21,17 +21,10 @@ registerForm.addEventListener('submit', async(event) => {
     }
 
     try {
-        const response = await fetch(window.API_BASE_URL + '/api/auth/register', {
+        const data = await app.apiFetch('/api/auth/register', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, email, password, role }),
         });
-
-        const data = await response.json();
-        if (!response.ok) {
-            setRegisterMessage(data.message || 'Registration failed.');
-            return;
-        }
 
         setRegisterMessage(data.message || 'Registration successful. Redirecting to login...', false);
         registerForm.reset();

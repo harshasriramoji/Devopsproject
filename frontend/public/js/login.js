@@ -20,17 +20,10 @@ loginForm.addEventListener('submit', async(event) => {
     }
 
     try {
-        const response = await fetch(window.API_BASE_URL + '/api/auth/login', {
+        const data = await app.apiFetch('/api/auth/login', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password, role }),
         });
-
-        const data = await response.json();
-        if (!response.ok) {
-            setMessage(data.message || 'Login failed.');
-            return;
-        }
 
         localStorage.setItem('token', data.token);
         localStorage.setItem('userRole', data.role);
