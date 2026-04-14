@@ -13,7 +13,7 @@ const apiFetch = async(path, options = {}) => {
 
     const data = await response.json().catch(() => null);
     if (!response.ok) {
-        const message = data ? .message || `Request failed with status ${response.status}`;
+        const message = data?.message || `Request failed with status ${response.status}`;
         throw new Error(message);
     }
     return data;

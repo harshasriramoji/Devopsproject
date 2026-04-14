@@ -8,8 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p2c8Zg7S4G3U7n1t2h6VqjP9qeKU2KvLx8vQ0K5s8bv6jSm7hGscrqY4sS0vB2qbPZDJkTXgqQf8D+S1xZ7j0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/style.css" />
 </head>
 
@@ -29,40 +28,45 @@
                 <p>Sign in to your Admin, Staff, or Student dashboard with smooth access and strong protection.</p>
             </div>
 
-            <form id="loginForm" class="auth-form">
+            <form id="loginForm" class="auth-form" role="form" aria-labelledby="login-heading">
                 <div class="form-row">
                     <label for="email">Email address</label>
                     <div class="input-group">
-                        <i class="fa-solid fa-envelope"></i>
-                        <input type="email" id="email" class="form-field" placeholder="name@domain.com" required />
+                        <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                        <input type="email" id="email" class="form-field" placeholder="name@domain.com" required aria-describedby="email-help" autocomplete="email" />
                     </div>
+                    <small id="email-help" class="sr-only">Enter your registered email address</small>
                 </div>
                 <div class="form-row">
                     <label for="password">Password</label>
                     <div class="input-group">
-                        <i class="fa-solid fa-lock"></i>
-                        <input type="password" id="password" class="form-field" placeholder="Enter password" required />
+                        <i class="fa-solid fa-lock" aria-hidden="true"></i>
+                        <input type="password" id="password" class="form-field" placeholder="Enter password" required aria-describedby="password-help" autocomplete="current-password" />
                     </div>
+                    <small id="password-help" class="sr-only">Enter your account password</small>
                 </div>
                 <div class="form-row role-row">
                     <label>Continue as</label>
-                    <div class="role-options">
+                    <div class="role-options" role="radiogroup" aria-labelledby="role-label">
                         <label class="role-pill selected">
-                            <input type="radio" name="role" value="admin" checked />
-                            <span><i class="fa-solid fa-user-shield"></i> Admin</span>
+                            <input type="radio" name="role" value="admin" checked aria-describedby="admin-desc" />
+                            <span><i class="fa-solid fa-user-shield" aria-hidden="true"></i> Admin</span>
                         </label>
                         <label class="role-pill">
-                            <input type="radio" name="role" value="staff" />
-                            <span><i class="fa-solid fa-user-tie"></i> Staff</span>
+                            <input type="radio" name="role" value="staff" aria-describedby="staff-desc" />
+                            <span><i class="fa-solid fa-user-tie" aria-hidden="true"></i> Staff</span>
                         </label>
                         <label class="role-pill">
-                            <input type="radio" name="role" value="student" />
-                            <span><i class="fa-solid fa-user-graduate"></i> Student</span>
+                            <input type="radio" name="role" value="student" aria-describedby="student-desc" />
+                            <span><i class="fa-solid fa-user-graduate" aria-hidden="true"></i> Student</span>
                         </label>
                     </div>
+                    <div id="admin-desc" class="sr-only">Access administrative features and system management</div>
+                    <div id="staff-desc" class="sr-only">Access staff features for hostel management</div>
+                    <div id="student-desc" class="sr-only">Access student features for room and complaint management</div>
                 </div>
                 <button type="submit" class="button-primary">Sign in</button>
-                <p id="message" class="form-message"></p>
+                <p id="message" class="form-message" role="alert" aria-live="polite"></p>
                 <p class="form-footer">New to HostelPro? <a href="/register">Create an account</a></p>
             </form>
         </div>

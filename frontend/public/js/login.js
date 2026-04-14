@@ -8,7 +8,7 @@ loginForm.addEventListener('submit', async(event) => {
 
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
-    const role = document.querySelector('input[name="role"]:checked') ? .value;
+    const role = document.querySelector('input[name="role"]:checked')?.value;
 
     if (!email || !password || !role) {
         setFormMessage(message, 'Please fill in all fields and select a role.');

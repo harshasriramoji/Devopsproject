@@ -156,6 +156,14 @@ button {
     transform: translateY(-0.5px);
 }
 
+.form-field:invalid {
+    border-color: #ef4444;
+}
+
+.form-field:invalid:focus {
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.14);
+}
+
 .select-group .form-field {
     appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath d='M2 4l4 4 4-4' fill='none' stroke='%2394a3b8' stroke-width='2'/%3E%3C/svg%3E");
@@ -223,6 +231,33 @@ button {
 .button-primary:hover {
     transform: translateY(-1px);
     box-shadow: 0 24px 54px rgba(59, 130, 246, 0.28);
+}
+
+.button-secondary {
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 14px 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    background: var(--surface);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+.button-secondary:hover {
+    background: var(--surface-soft);
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-0.5px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.15);
+}
+
+.button-secondary:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
 }
 
 .form-message {
@@ -361,6 +396,12 @@ button {
 .nav-link.active {
     background: rgba(59, 130, 246, 0.15);
     color: white;
+    transform: translateX(4px);
+}
+
+.nav-link.active {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 .nav-link i {
@@ -427,6 +468,14 @@ button {
     border-radius: 24px;
     padding: 24px;
     box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+.widget-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 32px 80px rgba(15, 23, 42, 0.12);
+    border-color: rgba(59, 130, 246, 0.2);
 }
 
 .widget-card {
@@ -517,7 +566,30 @@ button {
 .bar-fill {
     height: 100%;
     border-radius: 999px;
-    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    transition: width 0.8s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
 }
 
 .table-card {
@@ -537,9 +609,16 @@ button {
 }
 
 .table-card th {
-    color: #475569;
+    color: var(--text-secondary);
     font-weight: 700;
-    background: transparent;
+    background: var(--surface-soft);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.table-card tbody tr:hover {
+    background: rgba(59, 130, 246, 0.02);
 }
 
 .status-badge {
@@ -586,18 +665,36 @@ button {
     color: var(--text);
 }
 
-.modal {
-    position: fixed;
-    inset: 0;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    background: rgba(15, 23, 42, 0.55);
-    z-index: 20;
+.form-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+}
+
+.card {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+}
+
+.report-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 .modal.active {
     display: flex;
+    animation: modalFadeIn 0.3s ease-out;
 }
 
 .modal-card {
@@ -606,6 +703,28 @@ button {
     border-radius: 28px;
     padding: 32px;
     box-shadow: var(--shadow);
+    animation: modalSlideIn 0.3s ease-out;
+    border: 1px solid var(--border);
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .modal-card h2 {
@@ -632,8 +751,15 @@ button {
     list-style: none;
     padding: 18px;
     border-radius: 20px;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
+}
+
+.notice-card li:hover {
+    background: rgba(59, 130, 246, 0.02);
+    border-color: rgba(59, 130, 246, 0.2);
+    transform: translateX(2px);
 }
 
 .notice-card .notice-title {
@@ -660,6 +786,10 @@ button {
     }
     .auth-visual {
         border-radius: 0 0 32px 32px;
+        order: -1;
+    }
+    .widget-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -672,25 +802,46 @@ button {
         flex-direction: row;
         overflow-x: auto;
         padding: 20px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
     }
     .sidebar nav {
         display: flex;
+        gap: 8px;
     }
     .sidebar .brand {
         display: none;
     }
+    .content {
+        padding: 20px 16px;
+    }
 }
 
-@media (max-width: 700px) {
-    .auth-panel,
-    .auth-visual {
-        padding: 24px;
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 1;
     }
-    .auth-copy h1 {
-        font-size: 2.4rem;
+    50% {
+        opacity: 0.5;
     }
-    .topbar {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+}
+
+.loading {
+    animation: pulse 1.5s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.button-primary:disabled,
+.button-secondary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.form-field:disabled {
+    background: var(--surface-soft);
+    cursor: not-allowed;
+    opacity: 0.7;
 }
