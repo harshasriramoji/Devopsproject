@@ -1,14 +1,10 @@
 const registerForm = document.getElementById('registerForm');
 const registerMessage = document.getElementById('registerMessage');
-
-const setRegisterMessage = (text, isError = true) => {
-    registerMessage.textContent = text;
-    registerMessage.style.color = isError ? '#dc2626' : '#16a34a';
-};
+const submitButton = registerForm.querySelector('button[type="submit"]');
 
 registerForm.addEventListener('submit', async(event) => {
     event.preventDefault();
-    setRegisterMessage('');
+    setFormMessage(registerMessage, '');
 
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
@@ -16,22 +12,43 @@ registerForm.addEventListener('submit', async(event) => {
     const role = document.getElementById('role').value;
 
     if (!name || !email || !password || !role) {
-        setRegisterMessage('Please complete all fields.');
+        setFormMessage(registerMessage, 'Please complete all fields.');
         return;
     }
 
+    if (name.length < 2) {
+        setFormMessage(registerMessage, 'Name must be at least 2 characters long.');
+        return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setFormMessage(registerMessage, 'Please enter a valid email address.');
+        return;
+    }
+
+    if (password.length < 6) {
+        setFormMessage(registerMessage, 'Password must be at least 6 characters long.');
+        return;
+    }
+
+    setButtonLoading(submitButton, true);
+
     try {
-        const data = await app.apiFetch('/api/auth/register', {
+        const data = await apiFetchWithLoading('/api/auth/register', {
             method: 'POST',
             body: JSON.stringify({ name, email, password, role }),
-        });
+        }, submitButton);
 
-        setRegisterMessage(data.message || 'Registration successful. Redirecting to login...', false);
+        setFormMessage(registerMessage, data.message || 'Registration successful! Redirecting to login...', false);
         registerForm.reset();
+
         setTimeout(() => {
             window.location.href = '/login';
-        }, 1500);
+        }, 2000);
+
     } catch (error) {
-        setRegisterMessage('Unable to register at this time.');
+        setFormMessage(registerMessage, error.message || 'Registration failed. Please try again.');
+    } finally {
+        setButtonLoading(submitButton, false);
     }
 });

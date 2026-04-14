@@ -1,41 +1,58 @@
 const loginForm = document.getElementById('loginForm');
 const message = document.getElementById('message');
-
-const setMessage = (text, isError = true) => {
-    message.textContent = text;
-    message.style.color = isError ? '#dc2626' : '#16a34a';
-};
+const submitButton = loginForm.querySelector('button[type="submit"]');
 
 loginForm.addEventListener('submit', async(event) => {
     event.preventDefault();
-    setMessage('');
+    setFormMessage(message, '');
 
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
-    const role = document.querySelector('input[name="role"]:checked').value;
+    const role = document.querySelector('input[name="role"]:checked') ? .value;
 
-    if (!email || !password) {
-        setMessage('Please enter both email and password.');
+    if (!email || !password || !role) {
+        setFormMessage(message, 'Please fill in all fields and select a role.');
         return;
     }
 
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setFormMessage(message, 'Please enter a valid email address.');
+        return;
+    }
+
+    setButtonLoading(submitButton, true);
+
     try {
-        const data = await app.apiFetch('/api/auth/login', {
+        const data = await apiFetchWithLoading('/api/auth/login', {
             method: 'POST',
             body: JSON.stringify({ email, password, role }),
-        });
+        }, submitButton);
 
         localStorage.setItem('token', data.token);
         localStorage.setItem('userRole', data.role);
+        localStorage.setItem('userName', data.name || email);
 
-        if (data.role === 'admin') {
-            window.location.href = '/views/admin/admin-dashboard.html';
-        } else if (data.role === 'staff') {
-            window.location.href = '/views/staff/staff-dashboard.html';
-        } else {
-            window.location.href = '/views/student/student-dashboard.html';
-        }
+        setFormMessage(message, 'Login successful! Redirecting...', false);
+
+        // Redirect based on role
+        setTimeout(() => {
+            if (data.role === 'admin') {
+                window.location.href = '/views/admin/admin-dashboard.html';
+            } else if (data.role === 'staff') {
+                window.location.href = '/views/staff/staff-dashboard.html';
+            } else {
+                window.location.href = '/views/student/student-dashboard.html';
+            }
+        }, 1000);
+
     } catch (error) {
-        setMessage('Unable to login at this time.');
+        setFormMessage(message, error.message || 'Login failed. Please check your credentials.');
+    } finally {
+        setButtonLoading(submitButton, false);
     }
+});
+
+// Initialize role pills on page load
+document.addEventListener('DOMContentLoaded', () => {
+    bindRolePills();
 });
