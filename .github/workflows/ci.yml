@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: MERN CI Pipeline
 
 on:
   push:
@@ -9,7 +9,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      - name: CI success
-        run: echo "Pipeline is working"
+      - name: Show repository structure
+        run: ls -R
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Backend Dependencies
+        run: |
+          cd backend
+          npm install
+
+      - name: Run Backend Tests
+        run: |
+          cd backend
+          echo "No tests defined, skipping"
+
+      - name: Install Frontend Dependencies
+        run: |
+          cd frontend
+          echo "No frontend package.json, skipping"
+
+      - name: Build React App
+        run: |
+          cd frontend
+          echo "No build step, skipping"
